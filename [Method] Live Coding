@@ -1,0 +1,356 @@
+#include<iostream>
+using namespace std;
+
+// DEKLARASI MENU
+string 	makanan[18]={"Kerupuk","Kwetiaw","Mie Kuning","Makaroni","Mie Udan",
+					"Cilok","Ceker","Sayap","Balungan","Ati Ampela","Dumpling Cheese","Crab Claw",
+					"Crab Stick","Fish Ball","Tofu Fish Cake","Chikuwa","Jamur","Otak-otak Garut"},
+		toping[5]={"Bakso","Telur","Sosis","Batagor Kering","Kikil"},
+		minuman[6]={"Jeruk", "Teh", "Teh Susu","Susu Putih","Susu Cincau","Air mineral"},
+		pesananmakanan[1000],pesanantoping[1000],pesananminuman[1000] ;
+//DEKLARASI HARGA
+int harga[5]={5000,6000,7000,8000,10000},porsimakan[1000],porsitoping[1000],porsiminum[1000],feemakan[1000],feetoping[1000],feeminum[1000];
+int totalmakanan,totalminuman,totaltoping,kalimakan,kaliminum,kalitoping,TOTALFIX;
+//PERULANGAN
+int a,b,c,batal,potongan;
+char pilih;
+
+//METHOD HARGA MAKANAN
+
+int hargamakan (int x,int y,int z){
+	
+	if (x>=0 && x<=3 || x>=5 && x<=9){
+	feemakan[z] = harga[1] * y; 
+} else if (x==4 || x>=10 && x<=16){
+	feemakan[z] = harga [2] *y;
+} else if (x==17){
+	feemakan[z] = harga[4] * y;
+} else {feemakan[z] = 0*y ;
+} 
+pesananmakanan[z]= makanan[x];
+porsimakan[z] = kalimakan ;
+totalmakanan = feemakan[z] + totalmakanan ;
+}
+//METHOD HARGA TOPING
+int hargatoping (int x,int y,int z){
+	
+	if (x>=0 && x<=4 ){
+	feetoping[z] = harga[0] * y; 
+} else{
+}
+pesanantoping[z]= toping[x];
+porsitoping[z] = kalitoping ;
+totaltoping = feetoping[z] + totaltoping ;
+}
+//METHOD HARGA MINUM
+int hargaminum (int x,int y,int z){
+	
+	if (x==1 || x==5 ){
+	feeminum[z] = harga[0] * y; 
+} else if (x==2 || x==3){
+	feeminum [z] = harga[3] * y;
+} else if (x==0){
+	feeminum[z]= harga[2] * y;
+} else if(x==4){
+	feeminum[z] = harga[4] * y;
+} else{}
+
+pesananminuman[z]= minuman[x];
+porsiminum[z] = kaliminum ;
+totalminuman = feeminum[z] + totalminuman ;
+}
+
+//PROGRAM UTAMA
+int main () {
+	int kodemakan,kodeminum,kodetoping;
+	char kodemenu,lanjut;
+	string nama;
+	cout << "========== SELAMAT DATANG DI SEBLAK ASGAR ==========\n";
+	cout << "==========   Pedas - Seger - Ngajeletot   ==========\n\n";
+	cout << "Masukkan Nama Anda : " ; 
+	getline (cin,nama);
+	cout << "==========	       LIST MENU	==========\n\n";
+//Daftar Makanan
+	cout << "	[KODE MENU : A] MAKANAN 				\n"<<endl;
+	cout << "[1]. Kerupuk 				(6000)"<<endl;
+	cout << "[2]. Kwetiaw				(6000)"<<endl;
+	cout << "[3]. Mie Kuning				(6000)"<<endl;
+	cout << "[4]. Makaroni				(6000)"<<endl;
+	cout << "[5]. Mie Udan				(7000)"<<endl;
+	cout << "[6]. Cilok				(6000)"<<endl;
+	cout << "[7]. Ceker				(6000)"<<endl;
+	cout << "[8]. Sayap				(6000)"<<endl;
+	cout << "[9]. Balungan				(6000)"<<endl;
+	cout << "[10]. Ati Ampela			(6000)"<<endl;
+	cout << "[11]. Dumpling Cheese			(7000)"<<endl;
+	cout << "[12]. Crab Claw				(7000)"<<endl;
+	cout << "[13]. Crab Stick			(7000)"<<endl;
+	cout << "[14]. Fish Ball				(7000)"<<endl;
+	cout << "[15]. Tofu Fish Cake			(7000)"<<endl;
+	cout << "[16]. Chikuwa				(7000)"<<endl;
+	cout << "[17]. Jamur				(7000)"<<endl;
+	cout << "[18]. Otak-otak Garut			(10000)\n"<<endl;
+	
+//Daftar TOPING
+	cout << "	[KODE MENU : B] TOPING				\n"<<endl;
+	cout << "[1]. Bakso 				(5000)"<<endl;
+	cout << "[2]. Telur				(5000)"<<endl;
+	cout << "[3]. Sosis				(5000)"<<endl;
+	cout << "[4]. Batagor Kering			(5000)"<<endl;
+	cout << "[5]. Kikil				(5000)\n"<<endl;
+
+//Daftar Minuman	
+	cout << "	[KODE MENU : C] MINUMAN				\n"<<endl;
+	cout << "[1]. Jeruk 				(7000)"<<endl;
+	cout << "[2]. Teh				(5000)"<<endl;
+	cout << "[3]. Teh Susu				(8000)"<<endl;
+	cout << "[4]. Susu Putih				(8000)"<<endl;
+	cout << "[5]. Susu Cincau			(10000)"<<endl;
+	cout << "[6]. Air Mineral			(5000)\n"<<endl;
+
+cout << "\nLevel Kepedasan : " <<endl;
+cout  << "Level 0-1 : Minimal 3 Item Menu [Makanan]" <<endl;
+cout  << "Level 2   : Minimal 4 Item Menu [Makanan]" <<endl;
+cout  << "Level 3-5 : Minimal 5 Item Menu [Makanan]\n" <<endl;
+
+cout << "DISKON (PROMO SPESIAL)" <<endl;
+cout << "Diskon 15 % untuk pesanan [MAKANAN] minimal Rp 75000" << endl;
+cout << "Diskon 10 % untuk pesanan [TOPING]  minimal Rp 50000" << endl;
+cout << "Diskon 10 % untuk pesanan [MINUMAN] minimal Rp 30000\n" << endl;
+pesanan : 
+cout << "Masukkan KODE MENU [A/B/C] : " ; cin >> kodemenu;
+cout << endl;
+
+//MAKANAN (DONE) 	
+int z=1;
+if (kodemenu=='A' || kodemenu=='a'){ 
+	makanlagi :
+	cout << "Kode Nomor [MAKANAN] [1-18]   : " ; cin >> kodemakan;
+	cout << "["<<makanan[kodemakan-1]<<"] sebanyak (porsi) : "; cin >> kalimakan;
+	hargamakan((kodemakan-1) , kalimakan, z);
+	cout<<endl;
+	cout << "Pesan Makanan Lain ? [Y=(Ya) || T=(Tidak)] : "; cin >> pilih;
+	cout <<endl;
+	if (pilih == 'y' || pilih == 'Y') {z= z+1; goto makanlagi;
+	}
+	//REKAP MAKANAN
+	cout << endl <<endl;
+	cout << "================================================================" <<endl;
+	cout << "============ MAKANAN PESANAN ANDA ============" <<endl;
+	cout << "================================================================" <<endl<<endl;
+	
+	for (int j=1; j<=z;j++){
+		cout << "ITEM ["<<j<<"] " << pesananmakanan [j] <<" " <<porsimakan[j]<< " Porsi = Rp " << feemakan [j] << endl;
+	}
+	cout << endl;
+	cout << "============ Total Harga [MAKANAN] : Rp " <<totalmakanan<<" =================="<<endl;
+	cout << "================================================================"<<endl;
+	cout <<endl<<endl<<endl;
+	cout<< "Ingin memesan KODE MENU lain ? Y=YA // T=Tidak : " ; cin >> pilih ; 
+	if (pilih=='Y'|| pilih =='y'){
+		goto pesanan;
+	} else {cout<<endl<<endl<<endl;
+	}
+}
+//TOPING(DONE)
+else if (kodemenu=='B' || kodemenu=='b'){ 
+	topinglagi :
+	cout << "Kode Nomor [TOPING] [1-5]   : " ; cin >> kodetoping;
+	cout << "["<<toping[kodetoping-1]<<"] sebanyak (porsi) : "; cin >> kalitoping;
+	hargatoping((kodetoping-1) , kalitoping, z);
+	cout<<endl;
+	cout << "Pesan Toping Lain ? [Y=(Ya) || T=(Tidak)] : "; cin >> pilih;
+	cout <<endl;
+	if (pilih == 'y' || pilih == 'Y') {z= z+1; goto topinglagi;
+	}
+	//REKAP TOPING
+	cout << endl <<endl;
+	cout << "===============================================" <<endl;
+	cout << "============ TOPING PESANAN ANDA =============" <<endl;
+	cout << "===============================================" <<endl<<endl;
+	for (int j=1; j<=z;j++){
+		cout << "ITEM ["<<j<<"] " << pesanantoping [j] <<" " <<porsitoping[j]<< " Porsi = Rp " << feetoping [j] << endl;
+	}
+	cout <<endl;
+	cout << "============ Total Harga [TOPING] : Rp " << totaltoping <<" ============"<<endl;
+	cout << "========================================================="<<endl;
+	cout <<endl<<endl<<endl;
+	cout<< "Ingin memesan MENU lain Y=YA // T=Tidak : " ; cin >> pilih ; 
+	if (pilih=='Y'|| pilih =='y'){
+		goto pesanan;
+	}else {cout<<endl<<endl<<endl;
+	}
+}
+//MINUMAN
+else if (kodemenu=='C' || kodemenu=='c'){ 
+	minumlagi :
+	cout << "Kode Nomor [MINUMAN] [1-5]   : " ; cin >> kodeminum;
+	cout << "["<<minuman[kodeminum-1]<<"] sebanyak (porsi) : "; cin >> kaliminum;
+	hargaminum((kodeminum-1) , kaliminum, z);
+	cout<<endl;
+	cout << "Pesan Minuman Lain ? [Y=(Ya) || T=(Tidak)] : "; cin >> pilih;
+	cout <<endl;
+	if (pilih == 'y' || pilih == 'Y') {z= z+1; goto minumlagi;
+	}
+	//REKAP MINUM
+	cout << endl <<endl;
+	cout << "================================================================"<<endl;
+	cout << "============ MINUMAN PESANAN ANDA SEBAGAI BERIKUT ============"<<endl;
+	cout << "================================================================"<<endl<<endl;
+	for (int j=1; j<=z;j++){
+		cout << "ITEM ["<<j<<"] " << pesananminuman [j] <<" " <<porsiminum[j]<< " Porsi = Rp " << feeminum [j] << endl;
+	}
+	cout <<endl;
+	cout << "============ Total Harga [MINUMAN] : Rp " << totalminuman <<" ============"<<endl;
+	cout << "========================================================="<<endl;
+	cout <<endl<<endl<<endl;
+	cout<< "Ingin memesan MENU lain Y=YA // T=Tidak : " ; cin >> pilih ; 
+	if (pilih=='Y'|| pilih =='y'){
+		goto pesanan;
+	}
+	else {cout<<endl<<endl<<endl;
+	}
+}
+
+//STRUK BELANJA DAN PEMBAYARAN 
+cout <<"================================================================" <<endl;
+cout <<"========================= STRUK BELANJA  =======================" <<endl;
+cout <<"================================================================" <<endl;
+
+cout << "NAMA PEMESAN			= " << nama << endl;
+
+aman :
+cout << "[KODE MENU A : MAKANAN]" <<endl;
+for (int j=1; j<=z;j++){
+		cout << "ITEM ["<<j<<"] " << pesananmakanan [j] <<" " <<porsimakan[j]<< " Porsi = Rp " << feemakan [j] << endl;
+	}
+cout << "Total Harga Makanan : Rp " << totalmakanan <<endl;
+cout <<endl<<endl;
+cout << "[KODE MENU B : TOPING]" <<endl;
+for (int j=1; j<=z;j++){
+		cout << "ITEM ["<<j<<"] " << pesanantoping [j] <<" " <<porsitoping[j]<< " Porsi = Rp " << feetoping [j] << endl;
+	}
+	cout << "Total Harga Toping : Rp " << totaltoping <<endl;
+cout <<endl<<endl;
+cout << "[KODE MENU C : MINUMAN]" <<endl;
+for (int j=1; j<=z;j++){
+		cout << "ITEM ["<<j<<"] " << pesananminuman [j] <<" " <<porsiminum[j]<< " Porsi = Rp " << feeminum [j] << endl;
+	}
+	cout << "Total Harga Minuman : Rp " << totalminuman <<endl;
+cout <<endl;
+cout << "============== TOTAL = Rp ["<<totalmakanan + totaltoping + totalminuman <<"] =============="<<endl;
+cout << endl<<endl;
+
+akhir :
+cout << "Ingin melanjutkan pembayaran ? [Y=Ya || T = Tidak = Ada Pembatalan] ? : " ; cin >> lanjut;
+
+if (lanjut == 'Y' || lanjut == 'y'){
+
+//FINAL
+cout <<endl;
+cout << "TOTAL MAKANAN = Rp "<< totalmakanan<<endl ;
+cout << "TOTAL TOPING = Rp "<< totaltoping<<endl ;
+cout << "TOTAL MINUMAN = Rp "<< totalminuman<<endl ;
+cout << "============== TOTAL = Rp ["<<totalmakanan + totaltoping + totalminuman <<"] =============="<<endl;
+goto pembayaran;
+} 
+
+//PEMBATALAN PESANAN 
+	else if (lanjut=='T' || lanjut =='t'){
+	ulanglagi :
+	cout << "Ingin membatalkan pesanan [Ya=Y || T =Tidak] ? : " ;cin >> lanjut;
+	if (lanjut=='Y' || lanjut == 'y'){
+		cout << "Pilih KODE MENU yang ingin dibatalkan [A/B/C] : "; cin >> lanjut;
+		//BATAL MAKANAN
+		if(lanjut == 'A' || lanjut =='a'){
+			ulanga :
+			cout << "Masukkan KODE ITEM yang ingin dibatalkan : "; cin >> batal;
+			pesananmakanan[batal] = "PESANAN DIBATALKAN";
+			totalmakanan = totalmakanan - feemakan[batal];
+			feemakan[batal]=0;
+			cout << "Batalkan yang lain (Y=Ya || T=Tidak) ? : " ; cin >> lanjut;
+			if (lanjut=='Y' || lanjut =='y'){
+			goto ulanga;}		
+		 else { goto ulanglagi; }
+		} else if (lanjut=='B' || lanjut =='b'){
+			ulangb :
+			cout << "Masukkan KODE ITEM yang ingin dibatalkan : "; cin >> batal;
+			pesananminuman[batal] = "PESANAN DIBATALKAN";
+			totalminuman = totalminuman-feeminum[batal];
+			feeminum[batal] = 0;
+			cout << "Batalkan yang lain (Y=Ya || T=Tidak) ? : " ; cin >> lanjut;
+			if (lanjut=='Y' || lanjut =='y'){
+			goto ulangb;}		
+		 else { goto ulanglagi; }
+		} 
+		else if (lanjut=='C' || lanjut =='c'){
+			ulangc :
+			cout << "Masukkan KODE ITEM yang ingin dibatalkan : "; cin >> batal;
+			pesanantoping[batal] = "PESANAN DIBATALKAN";
+			totaltoping = totaltoping-feetoping [batal];
+			feetoping[batal] = 0;
+			cout << "Batalkan yang lain (Y=Ya || T=Tidak) ? : " ; cin >> lanjut;
+			if (lanjut=='Y' || lanjut =='y'){
+			goto ulangc;}		
+		 else { goto ulanglagi; }
+		} goto aman;
+	} else {}
+	goto akhir ;
+}
+
+pembayaran :
+	if(totalmakanan >=75000){
+		float diskon;
+		cout << "Selamat, [MAKANAN] Anda dapat diskon 15 %" <<endl;
+		diskon = totalmakanan * 0.15 ;
+		cout << "Diskon = Rp " << diskon <<endl ;
+		totalmakanan = totalmakanan-diskon;
+		cout << "Total [Makanan] sesudah diskon : Rp " << totalmakanan<<endl;
+	}
+	if(totalminuman >=50000){
+		float diskon;
+		cout << "Selamat, [MINUMAN] Anda dapat diskon 10 %" <<endl;
+		diskon = totalminuman * 0.1 ;
+		cout << "Diskon = Rp " << diskon <<endl ;
+		totalminuman = totalminuman-diskon;
+		cout << "Total [Minuman] sesudah diskon : Rp " << totalminuman<<endl;
+	}
+	if(totaltoping >=30000){
+		float diskon;
+		cout << "Selamat, [TOPING] Anda dapat diskon 10 %" <<endl;
+		diskon = totaltoping * 0.1 ;
+		cout << "Diskon = Rp " << diskon <<endl ;
+		totaltoping = totaltoping-diskon;
+		cout << "Total [Toping] sesudah diskon : Rp " << totaltoping<<endl;
+	}
+
+cout <<endl<<endl;
+cout << "============================================"<<endl;
+cout << "================STRUK FINAL================="<<endl;
+TOTALFIX = totalmakanan +totaltoping + totalminuman;
+cout << "Total Akhir = Rp " << TOTALFIX <<endl;
+
+//KASIR
+int kembalian,bayar,kurang;
+bool saldo;
+cout << "Silahkan bayar disini : Rp "; cin >> bayar ;
+	cout << endl;
+	
+	
+	while (saldo=bayar<TOTALFIX) {
+		cout << "Saldo anda kurang, Silahkan bayar lagi : "; cin >> kurang;
+		bayar+=kurang;
+};
+	kembalian = bayar - TOTALFIX ;
+	cout << "Uang yang anda bayar : Rp " <<bayar << endl;
+	cout << "Uang kembalian : Rp " <<kembalian <<endl<<endl;
+	
+	cout << "Terima kasih telah Berkunjung" <<endl;
+	cout << "Terima kasih telah Berkunjung" <<endl;
+	cout << "Terima kasih telah Berkunjung" <<endl<<endl;
+	
+	cout << "STAY SAFE, STAY HEALTHY"<<endl;
+	
+cin.get();
+return 0;
+}
